@@ -40,17 +40,46 @@
 
   <script type="text/javascript">
     Parse.initialize("QhfgEEXvd0e36BM9fwxZTMuhTpQBtjf9jzadh2Tt", "ADg6JB5rhHmXpgkEIkkdy2DqTExKdnZAxTzHUHno");
+
+
+     //file 
+    var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
+    var parseFile = new Parse.File("myfile2.txt", { base64: base64 });
+
+    parseFile.save().then(function() {
+      // The file has been saved to Parse.
+      //alert("file save success.");
+    }, function(error) {
+      // The file either could not be read, or could not be saved to Parse.
+      //alert("file save fail.");
+    });
     
     var TestObject = Parse.Object.extend("TestObject");
     var testObject = new TestObject();
-      testObject.save({foo: "bar22"}, {
-      success: function(object) {
+
+      testObject.set("foo", "bar22");
+      testObject.set("file", parseFile);
+      testObject.save().then(function(){
         $(".success").show();
       },
-      error: function(model, error) {
+      function(error) {
         $(".error").show();
       }
-    });
+    );
+
+      //file 
+    // var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
+    // var parseFile = new Parse.File("myfile.txt", { base64: base64 });
+
+    // parseFile.save().then(function() {
+    //   // The file has been saved to Parse.
+    //   alert("file save success.");
+    // }, function(error) {
+    //   // The file either could not be read, or could not be saved to Parse.
+    //   alert("file save fail.");
+    // });
+
+
   </script>
 </body>
 
