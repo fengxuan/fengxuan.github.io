@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.2.min.js"></script>
+  <script type="text/javascript" src="js/base64.js"></script>
 </head>
 
 <body>
@@ -36,6 +37,10 @@
           testObject.save({foo: "bar"});
         </code>
     </div>
+
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+
+    </canvas>
   </div>
 
   <script type="text/javascript">
@@ -44,28 +49,36 @@
 
      //file 
     var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
-    var parseFile = new Parse.File("myfile2.txt", { base64: base64 });
+    base64 = Base64.encode("Hello World, Welcome to opendeliver. 中国香港，台湾。 阿拉伯语，简称阿语（العربية‎ al-ʻarabīyah [alʕaraˈbijja] 或者 عربي/عربى‎ ʻarabī [ˈʕarabiː]，英语：Arabic language），是指源自公元6世纪的古典阿拉伯语的一种或多种语言。");
+
+    //var parseFile = new Parse.File("opendeliver.txt", { base64: base64 });
+
+    var bytes = [ 0xBE, 0xEF, 0xCA, 0xFE ];
+    var parseFile = new Parse.File("myfile.txt", bytes);
 
     parseFile.save().then(function() {
       // The file has been saved to Parse.
       //alert("file save success.");
+      console.log(parseFile.url());
     }, function(error) {
       // The file either could not be read, or could not be saved to Parse.
       //alert("file save fail.");
     });
+
+
     
     var TestObject = Parse.Object.extend("TestObject");
     var testObject = new TestObject();
 
       testObject.set("foo", "bar22");
       testObject.set("file", parseFile);
-      testObject.save().then(function(){
-        $(".success").show();
-      },
-      function(error) {
-        $(".error").show();
-      }
-    );
+      // testObject.save().then(function(){
+      //     $(".success").show();
+      //   },
+      //   function(error) {
+      //     $(".error").show();
+      //   }
+      // );
 
       //file 
     // var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
@@ -78,7 +91,40 @@
     //   // The file either could not be read, or could not be saved to Parse.
     //   alert("file save fail.");
     // });
+    
+    function aa(){
 
+    }
+    function canvasDraw(){
+      var c = document.getElementById("myCanvas");
+      var ctx = c.getContext("2d");
+      ctx.font = "30px Arial";
+      ctx.fillText("Hello World",10,50);
+
+      ctx.beginPath();
+      ctx.arc(95,50,40,0,2*Math.PI);
+      ctx.stroke();
+
+      //var imgData = ctx.getImageData(0,0,c.width,c.height);
+
+      var imgData = c.toDataURL("image/png");
+      console.log(imgData);
+
+      //var parseFile = new Parse.File("image1.png", imgData);
+      var parseFile = new Parse.File("opendeliver.png", { base64: imgData });
+
+      parseFile.save().then(function() {
+        // The file has been saved to Parse.
+        //alert("file save success.");
+        console.log(parseFile.url());
+      }, function(error) {
+        // The file either could not be read, or could not be saved to Parse.
+        //alert("file save fail.");
+      });
+
+      }
+
+    canvasDraw();
 
   </script>
 </body>
