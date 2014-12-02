@@ -7,9 +7,11 @@
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/drawingboard.min.css">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.2.min.js"></script>
   <script type="text/javascript" src="js/base64.js"></script>
+  <script type="text/javascript" src="js/drawingboard.min.js"></script>
 </head>
 
 <body>
@@ -43,6 +45,8 @@
     </canvas>
   </div>
 
+  <div id="default-board" style="width: 698px; height: 365px;"></div>
+
   <script type="text/javascript">
     Parse.initialize("QhfgEEXvd0e36BM9fwxZTMuhTpQBtjf9jzadh2Tt", "ADg6JB5rhHmXpgkEIkkdy2DqTExKdnZAxTzHUHno");
 
@@ -56,14 +60,15 @@
     var bytes = [ 0xBE, 0xEF, 0xCA, 0xFE ];
     var parseFile = new Parse.File("myfile.txt", bytes);
 
-    parseFile.save().then(function() {
-      // The file has been saved to Parse.
-      //alert("file save success.");
-      console.log(parseFile.url());
-    }, function(error) {
-      // The file either could not be read, or could not be saved to Parse.
-      //alert("file save fail.");
-    });
+    // save Text
+    // parseFile.save().then(function() {
+    //   // The file has been saved to Parse.
+    //   //alert("file save success.");
+    //   console.log(parseFile.url());
+    // }, function(error) {
+    //   // The file either could not be read, or could not be saved to Parse.
+    //   //alert("file save fail.");
+    // });
 
 
     
@@ -113,18 +118,25 @@
       //var parseFile = new Parse.File("image1.png", imgData);
       var parseFile = new Parse.File("opendeliver.png", { base64: imgData });
 
-      parseFile.save().then(function() {
-        // The file has been saved to Parse.
-        //alert("file save success.");
-        console.log(parseFile.url());
-      }, function(error) {
-        // The file either could not be read, or could not be saved to Parse.
-        //alert("file save fail.");
-      });
+      //save file
+      // parseFile.save().then(function() {
+      //   // The file has been saved to Parse.
+      //   //alert("file save success.");
+      //   console.log(parseFile.url());
+      // }, function(error) {
+      //   // The file either could not be read, or could not be saved to Parse.
+      //   //alert("file save fail.");
+      // });
 
       }
 
     canvasDraw();
+
+    //create the drawingboard by passing it the #id of the wanted container
+	var defaultBoard = new DrawingBoard.Board('default-board',{
+		droppable: true,
+		background:"img/QQ_Photo20141202192150.jpg"
+	});
 
   </script>
 </body>
