@@ -16,7 +16,7 @@
 
 <body>
   
-  <div id="main">
+  <div id="main" style="display:none">
     <h1>You're ready to paint!</h1>
 
     <div style="display:none" class="error">
@@ -30,10 +30,13 @@
     <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
 
     </canvas>
-    <a href="#" onclick="return saveImg()"></a> <a id="newImgId" href="#">img</a>
-    <div id="default-board" style="width: 600px; height: 500px;"></div>
+    
   </div>
 
+<div>
+  <a href="#" onclick="return saveImg()">saveImg</a> <a id="newImgId" href="#">newimg</a>
+    <div id="default-board" style="width: 800px; height: 600px;"></div>
+</div>
   
 
   <script type="text/javascript">
@@ -119,13 +122,26 @@
 
       }
 
-    canvasDraw();
+    //canvasDraw();
 
-    saveImg(){
+    function saveImg(){
 
       var c = $("#default-board").find("canvas")[0];
+      console.log(c);
       var imgData = c.toDataURL("image/png");
       console.log(imgData);
+
+      var parseFile = new Parse.File("opendeliver.png", { base64: imgData });
+
+      //save file
+      parseFile.save().then(function() {
+        // The file has been saved to Parse.
+        //alert("file save success.");
+        console.log(parseFile.url());
+      }, function(error) {
+        // The file either could not be read, or could not be saved to Parse.
+        //alert("file save fail.");
+      });
 
       return true;
     }
@@ -133,7 +149,9 @@
     //create the drawingboard by passing it the #id of the wanted container
 	var defaultBoard = new DrawingBoard.Board('default-board',{
 		droppable: true,
-		background:"img/QQ_Photo20141202192150.jpg"
+	  //background:"img/QQ_Photo20141202192150.jpg",
+    enlargeYourContainer: false,
+    stretchImg:true,
 	});
 
   </script>
