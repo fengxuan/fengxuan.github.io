@@ -142,12 +142,29 @@
         $("#newImgId")[0].href = parseFile.url();
 
         $("#newImgId")[0].innerHTML = Math.floor((Math.random() * 1000) + 1);
+
+        saveDrawPic("opendeliver.png", parseFile);
       }, function(error) {
         // The file either could not be read, or could not be saved to Parse.
         //alert("file save fail.");
       });
 
       return true;
+    }
+
+
+    function saveDrawPic(name, parseFile){
+      var drawPic = Parse.Object.extend("DrawPic"); 
+      drawPic.set("name", name);
+      drawPic.set("file", parseFile);
+      drawPic.save().then(function(){
+          //$(".success").show();
+          console.log("draw pic save success");
+        },
+        function(error) {
+          console.log("draw pic save fail");
+        }
+      );
     }
 
     //create the drawingboard by passing it the #id of the wanted container
