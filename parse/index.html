@@ -124,6 +124,21 @@
 
     //canvasDraw();
 
+    function saveDrawPic(name, parseFile){
+      var drawPic = Parse.Object.extend("DrawPic"); 
+      drawPic.set("name", name);
+      drawPic.set("file", parseFile);
+      drawPic.save().then(function(){
+          //$(".success").show();
+          console.log("draw pic save success");
+        },
+        function(error) {
+          console.log("draw pic save fail");
+        }
+      );
+    }
+
+
     function saveImg(){
 
       var c = $("#default-board").find("canvas")[0];
@@ -143,7 +158,24 @@
 
         $("#newImgId")[0].innerHTML = Math.floor((Math.random() * 1000) + 1);
 
-        saveDrawPic("opendeliver.png", parseFile);
+        //saveDrawPic("opendeliver.png", parseFile);
+        var drawPic = Parse.Object.extend("DrawPic"); 
+        drawPic.set("name", name);
+        drawPic.set("file", parseFile);
+        drawPic.save().then(function(){
+            //$(".success").show();
+            console.log("draw pic save success");
+          },
+          function(error) {
+            console.log("draw pic save fail");
+          }
+        );
+
+
+
+        //end save
+
+
       }, function(error) {
         // The file either could not be read, or could not be saved to Parse.
         //alert("file save fail.");
@@ -152,20 +184,6 @@
       return true;
     }
 
-
-    function saveDrawPic(name, parseFile){
-      var drawPic = Parse.Object.extend("DrawPic"); 
-      drawPic.set("name", name);
-      drawPic.set("file", parseFile);
-      drawPic.save().then(function(){
-          //$(".success").show();
-          console.log("draw pic save success");
-        },
-        function(error) {
-          console.log("draw pic save fail");
-        }
-      );
-    }
 
     //create the drawingboard by passing it the #id of the wanted container
 	var defaultBoard = new DrawingBoard.Board('default-board',{
