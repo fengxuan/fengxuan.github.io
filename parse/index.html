@@ -123,9 +123,11 @@
       }
 
     //canvasDraw();
+    var DrawPic = Parse.Object.extend("DrawPic"); 
 
     function saveDrawPic(name, parseFile){
-      var drawPic = Parse.Object.extend("DrawPic"); 
+      
+      var drawPic = new DrawPic();
       drawPic.set("name", name);
       drawPic.set("file", parseFile);
       drawPic.save().then(function(){
@@ -158,24 +160,7 @@
 
         $("#newImgId")[0].innerHTML = Math.floor((Math.random() * 1000) + 1);
 
-        //saveDrawPic("opendeliver.png", parseFile);
-        var drawPic = Parse.Object.extend("DrawPic"); 
-        drawPic.set("name", name);
-        drawPic.set("file", parseFile);
-        drawPic.save().then(function(){
-            //$(".success").show();
-            console.log("draw pic save success");
-          },
-          function(error) {
-            console.log("draw pic save fail");
-          }
-        );
-
-
-
-        //end save
-
-
+        saveDrawPic("opendeliver.png", parseFile);
       }, function(error) {
         // The file either could not be read, or could not be saved to Parse.
         //alert("file save fail.");
