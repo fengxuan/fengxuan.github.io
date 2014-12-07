@@ -140,6 +140,8 @@
         console.log(parseFile.url());
 
         $("#newImgId")[0].href = parseFile.url();
+
+        $("#newImgId")[0].innerHTML = Math.floor((Math.random() * 1000) + 1);
       }, function(error) {
         // The file either could not be read, or could not be saved to Parse.
         //alert("file save fail.");
