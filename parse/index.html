@@ -138,6 +138,8 @@
         // The file has been saved to Parse.
         //alert("file save success.");
         console.log(parseFile.url());
+
+        $("#newImgId").href = parseFile.url();
       }, function(error) {
         // The file either could not be read, or could not be saved to Parse.
         //alert("file save fail.");
